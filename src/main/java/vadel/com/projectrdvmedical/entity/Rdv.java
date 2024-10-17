@@ -1,5 +1,6 @@
 package vadel.com.projectrdvmedical.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class Rdv {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String etat;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime dateRdv;
     @ManyToOne
     Patient patient;

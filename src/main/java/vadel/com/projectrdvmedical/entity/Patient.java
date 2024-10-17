@@ -1,5 +1,6 @@
 package vadel.com.projectrdvmedical.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,5 +20,6 @@ public class Patient {
     private int age;
     private int tel;
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     List<Rdv> rdvList;
 }
