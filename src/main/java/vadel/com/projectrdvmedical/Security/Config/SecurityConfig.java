@@ -1,4 +1,4 @@
-package vadel.com.projectrdvmedical.Config;
+package vadel.com.projectrdvmedical.Security.Config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -20,13 +20,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(prePostEnabled=true)
 public class SecurityConfig {
 
-    @Bean
+    private static final String[] URL_LIST = {
+            "/api/auth/addUser",
+            "/api/auth/addRole",
+            "/api/auth/addRoleToUser"
+    };
+
+    /*@Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
         UserDetails user1 = User.withUsername("dady").password(passwordEncoder().encode("123")).authorities("USER").build();
         UserDetails admin = User.withUsername("ahmedou").password(passwordEncoder().encode("321")).authorities("USER","ADMIN").build();
 
         return new InMemoryUserDetailsManager(user1,admin);
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -37,7 +43,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf->csrf.disable())
-                .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
+                .authorizeHttpRequests(ar->ar.requestMatchers(URL_LIST).permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

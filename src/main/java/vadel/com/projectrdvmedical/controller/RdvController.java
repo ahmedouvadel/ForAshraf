@@ -20,13 +20,13 @@ public class RdvController {
 
 
     @GetMapping("/rdv")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Rdv>> getAllRdv(){
         List<Rdv> rdvList = serviceRdv.getAllRdvByOrderAsc();
         return new ResponseEntity<>(rdvList, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/rdv")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> addRdv(@RequestBody Rdv rdv){
         Rdv existRdvPatient = serviceRdv.getRdvPatientBydateTime(rdv.getPatient().getId(),rdv.getDateRdv());
         Rdv existRdvMedecin = serviceRdv.getRdvMedcinBydateTime(rdv.getMedecin().getId(), rdv.getDateRdv());
