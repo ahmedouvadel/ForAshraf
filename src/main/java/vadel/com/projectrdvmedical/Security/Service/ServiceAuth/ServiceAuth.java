@@ -1,6 +1,7 @@
 package vadel.com.projectrdvmedical.Security.Service.ServiceAuth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vadel.com.projectrdvmedical.Security.Entity.Role;
@@ -12,7 +13,7 @@ import vadel.com.projectrdvmedical.Security.Service.IServiceAuth.IServiceAuth;
 @Service
 @RequiredArgsConstructor
 public class ServiceAuth implements IServiceAuth {
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     @Override

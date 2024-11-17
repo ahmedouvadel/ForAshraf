@@ -26,7 +26,7 @@ public class RdvController {
     }
 
     @PostMapping("/rdv")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public ResponseEntity<Object> addRdv(@RequestBody Rdv rdv){
         Rdv existRdvPatient = serviceRdv.getRdvPatientBydateTime(rdv.getPatient().getId(),rdv.getDateRdv());
         Rdv existRdvMedecin = serviceRdv.getRdvMedcinBydateTime(rdv.getMedecin().getId(), rdv.getDateRdv());
